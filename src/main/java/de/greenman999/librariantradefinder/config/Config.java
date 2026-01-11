@@ -28,7 +28,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.enchantment.Enchantment;
-import org.jspecify.annotations.Nullable;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 import java.util.Comparator;
@@ -87,12 +86,12 @@ public class Config {
 
 	/**
 	 * The type of second trade to look for.
-	 * If null, only the enchanted book trade is considered.
+	 * Either SELL_PAPER, BUY_BOOKSHELF or ANY.
 	 */
-	@Nullable
-	private SecondTradeType secondTradeType = null;
+	private SecondTradeType secondTradeType = SecondTradeType.ANY;
 
 	public enum SecondTradeType {
+		ANY,
 		SELL_PAPER,
 		BUY_BOOKSHELF,
 	}
@@ -211,11 +210,11 @@ public class Config {
 		this.notifyOnTradeFound = notifyOnTradeFound;
 	}
 
-	public @Nullable SecondTradeType getSecondTradeType() {
+	public SecondTradeType getSecondTradeType() {
 		return secondTradeType;
 	}
 
-	public void setSecondTradeType(@Nullable SecondTradeType secondTradeType) {
+	public void setSecondTradeType(SecondTradeType secondTradeType) {
 		this.secondTradeType = secondTradeType;
 	}
 
