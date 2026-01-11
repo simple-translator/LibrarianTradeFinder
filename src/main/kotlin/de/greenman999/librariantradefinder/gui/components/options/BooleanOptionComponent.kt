@@ -32,4 +32,6 @@ class BooleanOptionComponent(optionKey: String, initialChecked: Boolean, initial
 		x = 1.pixels(alignOpposite = true)
 		y = CenterConstraint()
 	} childOf this
+
+	// TODO: Add click on whole component to toggle checkbox
 }
