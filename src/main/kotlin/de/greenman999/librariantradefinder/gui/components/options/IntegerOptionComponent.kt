@@ -20,6 +20,7 @@
 package de.greenman999.librariantradefinder.gui.components.options
 
 import de.greenman999.librariantradefinder.gui.components.SliderComponent
+import de.greenman999.librariantradefinder.util.withHandCursor
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
@@ -43,6 +44,7 @@ class IntegerOptionComponent(optionKey: String, initialValue: Int, val min: Int,
 
 	init {
 	    slider.outline.effect(OutlineEffect(Color(255, 255, 255), 1f))
+		slider.withHandCursor()
 	}
 
 	fun normalizeValue(value: Int): Float {
