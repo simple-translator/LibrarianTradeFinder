@@ -26,5 +26,10 @@
   "librariantradefinder.gui.options.action_delay_ticks": "Action Delay Ticks",
   "librariantradefinder.gui.options.action_delay_ticks.tooltip": "The range of ticks to wait between actions to appear more human-like.",
   "librariantradefinder.gui.options.action_delay_ticks.min": "Min",
-  "librariantradefinder.gui.options.action_delay_ticks.max": "Max"
+  "librariantradefinder.gui.options.action_delay_ticks.max": "Max",
+  "librariantradefinder.gui.options.second_trade_type": "Second Trade Type",
+  "librariantradefinder.gui.options.second_trade_type.tooltip": "The type of the second trade offered by the librarian.",
+  "librariantradefinder.gui.options.second_trade_type.any": "Any",
+  "librariantradefinder.gui.options.second_trade_type.buy_bookshelf": "Book",
+  "librariantradefinder.gui.options.second_trade_type.sell_paper": "Paper"
 }

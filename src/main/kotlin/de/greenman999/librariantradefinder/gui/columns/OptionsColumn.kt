@@ -20,7 +20,9 @@
 package de.greenman999.librariantradefinder.gui.columns
 
 import de.greenman999.librariantradefinder.LibrarianTradeFinder
+import de.greenman999.librariantradefinder.config.Config
 import de.greenman999.librariantradefinder.gui.components.options.BooleanOptionComponent
+import de.greenman999.librariantradefinder.gui.components.options.EnumOptionComponent
 import de.greenman999.librariantradefinder.gui.components.options.IntegerOptionComponent
 import de.greenman999.librariantradefinder.gui.components.options.IntegerRangeOptionComponent
 import gg.essential.elementa.components.UIContainer
@@ -52,7 +54,11 @@ class OptionsColumn : UIContainer() {
 	val notifyOnTradeFoundOption by BooleanOptionComponent("notify_on_trade_found", instance.config.shouldNotifyOnTradeFound()) childOf this
 	val displayTradesOnVillagerOption by BooleanOptionComponent("display_trades_on_villager", instance.config.shouldDisplayTradesOnVillager()) childOf this
 	val reRollTimeoutTicksOption by IntegerOptionComponent("reroll_timeout_ticks", instance.config.rerollTimeoutTicks, 1, 200) childOf this
-
+	val secondTradeTypeOption by EnumOptionComponent(
+		"second_trade_type",
+		Config.SecondTradeType::class.java,
+		instance.config.secondTradeType
+	) childOf this
 
 	init {
 		preventToolBreakingOption.checkbox.onUpdate {
@@ -113,6 +119,11 @@ class OptionsColumn : UIContainer() {
 				instance.config.actionDelayTicks.min = instance.config.actionDelayTicks.max
 				actionDelayTicksOption.minOption.slider.updateSliderValue(actionDelayTicksOption.minOption.normalizeValue(instance.config.actionDelayTicks.min))
 			}
+			instance.configManager.save()
+		}
+
+		secondTradeTypeOption.onUpdate {
+			instance.config.secondTradeType = it
 			instance.configManager.save()
 		}
 	}
