@@ -20,6 +20,7 @@
 package de.greenman999.librariantradefinder.gui.components.options
 
 import de.greenman999.librariantradefinder.util.translatable
+import de.greenman999.librariantradefinder.util.withHandCursor
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIText
@@ -30,6 +31,7 @@ import gg.essential.elementa.dsl.effect
 import gg.essential.elementa.dsl.pixels
 import gg.essential.elementa.dsl.provideDelegate
 import gg.essential.elementa.effects.OutlineEffect
+import gg.essential.universal.USound
 import java.awt.Color
 
 class EnumOptionComponent<T : Enum<T>>(optionKey: String, enum: Class<T>, initialValue: T, initialDisabled: Boolean = false, showTooltip: Boolean = true) : OptionComponent(optionKey, initialDisabled, showTooltip) {
@@ -44,7 +46,7 @@ class EnumOptionComponent<T : Enum<T>>(optionKey: String, enum: Class<T>, initia
 		y = CenterConstraint()
 		width = 90.pixels()
 		height = 18.pixels()
-	} childOf this effect OutlineEffect(Color.GRAY, 1f)
+	}.withHandCursor() childOf this effect OutlineEffect(Color.GRAY, 1f)
 
 	val enumSelectorText by UIText(translatable("librariantradefinder.gui.options." + optionKey + "." + value.name.lowercase())).constrain {
 		x = CenterConstraint()
@@ -58,6 +60,7 @@ class EnumOptionComponent<T : Enum<T>>(optionKey: String, enum: Class<T>, initia
 			value = values[nextIndex]
 			onUpdateListener(value)
 			enumSelectorText.setText(translatable("librariantradefinder.gui.options." + optionKey + "." + value.name.lowercase()))
+			USound.playButtonPress()
 		}
 	}
 
