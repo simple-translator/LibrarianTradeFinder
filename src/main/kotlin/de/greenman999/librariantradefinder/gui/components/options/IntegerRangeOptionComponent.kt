@@ -23,7 +23,10 @@ import gg.essential.elementa.constraints.ChildBasedSizeConstraint
 import gg.essential.elementa.constraints.SiblingConstraint
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
+import gg.essential.elementa.dsl.minus
+import gg.essential.elementa.dsl.percent
 import gg.essential.elementa.dsl.pixels
+import gg.essential.elementa.dsl.plus
 import gg.essential.elementa.dsl.provideDelegate
 
 class IntegerRangeOptionComponent(optionKey: String, initialMin: Int, initialMax: Int, min: Int, max: Int, initialDisabled: Boolean = false) : OptionComponent(optionKey, initialDisabled)  {
@@ -35,16 +38,21 @@ class IntegerRangeOptionComponent(optionKey: String, initialMin: Int, initialMax
 		constrain {
 			height = ChildBasedSizeConstraint()
 		}
-		super.label.setY(SiblingConstraint(padding = 2f))
+		super.label.setY(SiblingConstraint(padding = 2f) + 5.pixels())
+
 
 		maxOption.constrain {
-			x = 0.pixels()
+			x = 10.pixels()
 			y = SiblingConstraint(padding = 2f)
+
+			width = 100.percent() - 10.pixels()
 		}
 
 		minOption.constrain {
-			x = 0.pixels()
+			x = 10.pixels()
 			y = SiblingConstraint(padding = 2f)
+
+			width = 100.percent() - 10.pixels()
 		}
 	}
 

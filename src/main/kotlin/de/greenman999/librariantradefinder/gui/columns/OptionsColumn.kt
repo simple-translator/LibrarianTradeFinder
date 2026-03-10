@@ -63,8 +63,8 @@ class OptionsColumn : UIContainer() {
 	val teleportToDroppedItemsOption by BooleanOptionComponent("teleport_to_dropped_items", instance.config.shouldTeleportToDroppedItems()) childOf options
 	val smartLookModeOption by BooleanOptionComponent("smart_look_mode", instance.config.isSmartLookMode) childOf options
 	val slowModeOption by BooleanOptionComponent("slow_mode", instance.config.isSlowMode, !instance.config.isSmartLookMode).constrain {
-		x = 20.pixels()
-		width = 100.percent() - 20.pixels()
+		x = 10.pixels()
+		width = 100.percent() - 10.pixels()
 	} childOf options
 	val actionDelayTicksOption by IntegerRangeOptionComponent("action_delay_ticks",
 		instance.config.actionDelayTicks.min,
