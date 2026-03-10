@@ -42,7 +42,7 @@ class EnumOptionComponent<T : Enum<T>>(optionKey: String, enum: Class<T>, initia
 	private var value: T = initialValue
 
 	val enumSelector by UIBlock(Color.DARK_GRAY).constrain {
-		x = 0.pixels(alignOpposite = true)
+		x = 1.pixels(alignOpposite = true)
 		y = CenterConstraint()
 		width = 90.pixels()
 		height = 18.pixels()
