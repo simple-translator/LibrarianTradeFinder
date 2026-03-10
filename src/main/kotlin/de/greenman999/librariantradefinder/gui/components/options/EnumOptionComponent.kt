@@ -19,6 +19,7 @@
 
 package de.greenman999.librariantradefinder.gui.components.options
 
+import de.greenman999.librariantradefinder.util.translatable
 import gg.essential.elementa.UIComponent
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIText
@@ -45,7 +46,7 @@ class EnumOptionComponent<T : Enum<T>>(optionKey: String, enum: Class<T>, initia
 		height = 18.pixels()
 	} childOf this effect OutlineEffect(Color.GRAY, 1f)
 
-	val enumSelectorText by UIText(value.name).constrain {
+	val enumSelectorText by UIText(translatable("librariantradefinder.gui.options." + optionKey + "." + value.name.lowercase())).constrain {
 		x = CenterConstraint()
 		y = CenterConstraint()
 	} childOf enumSelector
@@ -56,7 +57,7 @@ class EnumOptionComponent<T : Enum<T>>(optionKey: String, enum: Class<T>, initia
 			val nextIndex = (currentIndex + 1) % values.size
 			value = values[nextIndex]
 			onUpdateListener(value)
-			enumSelectorText.setText(value.toString())
+			enumSelectorText.setText(translatable("librariantradefinder.gui.options." + optionKey + "." + value.name.lowercase()))
 		}
 	}
 
