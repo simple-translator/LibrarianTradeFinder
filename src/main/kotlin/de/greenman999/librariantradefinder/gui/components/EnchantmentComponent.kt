@@ -171,14 +171,12 @@ class EnchantmentComponent(val entry: MutableMap.MutableEntry<Identifier, Config
 	}
 
 	fun updateEntry(toggle: Boolean) {
-		println("Updating entry for ${enchantment.description().string}, toggle=$toggle")
 		if (toggle) {
 			config.enableEnchantment(entry.key, !config.isEnchantmentEnabled(entry.key))
 			LibrarianTradeFinder.getInstance().configManager.save()
 		}
 
 		colorState.set {
-			println("Setting color for ${enchantment.description().string}, enabled=${config.isEnchantmentEnabled(entry.key)}")
 			if (config.isEnchantmentEnabled(entry.key)) {
 				Color(56, 171, 80, 150)
 			} else {
