@@ -25,42 +25,66 @@ import de.greenman999.librariantradefinder.gui.components.options.BooleanOptionC
 import de.greenman999.librariantradefinder.gui.components.options.EnumOptionComponent
 import de.greenman999.librariantradefinder.gui.components.options.IntegerOptionComponent
 import de.greenman999.librariantradefinder.gui.components.options.IntegerRangeOptionComponent
+import de.greenman999.librariantradefinder.util.withHandCursor
+import gg.essential.elementa.components.ScrollComponent
 import gg.essential.elementa.components.UIContainer
+import gg.essential.elementa.components.UIRoundedRectangle
 import gg.essential.elementa.dsl.childOf
 import gg.essential.elementa.dsl.constrain
 import gg.essential.elementa.dsl.minus
 import gg.essential.elementa.dsl.percent
 import gg.essential.elementa.dsl.pixels
 import gg.essential.elementa.dsl.provideDelegate
+import gg.essential.elementa.dsl.times
+import gg.essential.elementa.dsl.toConstraint
+import java.awt.Color
 
 class OptionsColumn : UIContainer() {
 
 	val instance = LibrarianTradeFinder.getInstance()
 
-	val preventToolBreakingOption by BooleanOptionComponent("prevent_tool_breaking", instance.config.shouldPreventToolBreaking()) childOf this
-	val teleportToDroppedItemsOption by BooleanOptionComponent("teleport_to_dropped_items", instance.config.shouldTeleportToDroppedItems()) childOf this
-	val smartLookModeOption by BooleanOptionComponent("smart_look_mode", instance.config.isSmartLookMode) childOf this
+	val options by ScrollComponent().constrain {
+		x = 0.pixels()
+		y = 0.pixels()
+
+		width = 100.percent() - 4.pixels() * 2
+		height = 100.percent()
+	} childOf this
+
+	val scrollbar by UIRoundedRectangle(2f).constrain {
+		x = 0.pixels(alignOpposite = true)
+
+		width = 4.pixels()
+
+		color = Color(0, 0, 0, 100).toConstraint()
+	}.withHandCursor() childOf this
+
+	val preventToolBreakingOption by BooleanOptionComponent("prevent_tool_breaking", instance.config.shouldPreventToolBreaking()) childOf options
+	val teleportToDroppedItemsOption by BooleanOptionComponent("teleport_to_dropped_items", instance.config.shouldTeleportToDroppedItems()) childOf options
+	val smartLookModeOption by BooleanOptionComponent("smart_look_mode", instance.config.isSmartLookMode) childOf options
 	val slowModeOption by BooleanOptionComponent("slow_mode", instance.config.isSlowMode, !instance.config.isSmartLookMode).constrain {
 		x = 20.pixels()
 		width = 100.percent() - 20.pixels()
-	} childOf this
+	} childOf options
 	val actionDelayTicksOption by IntegerRangeOptionComponent("action_delay_ticks",
 		instance.config.actionDelayTicks.min,
 		instance.config.actionDelayTicks.max,
 		0,
 		200
-	) childOf this
-	val buyOnTradeFoundOption by BooleanOptionComponent("buy_on_trade_found", instance.config.shouldBuyOnTradeFound()) childOf this
-	val notifyOnTradeFoundOption by BooleanOptionComponent("notify_on_trade_found", instance.config.shouldNotifyOnTradeFound()) childOf this
-	val displayTradesOnVillagerOption by BooleanOptionComponent("display_trades_on_villager", instance.config.shouldDisplayTradesOnVillager()) childOf this
-	val reRollTimeoutTicksOption by IntegerOptionComponent("reroll_timeout_ticks", instance.config.rerollTimeoutTicks, 1, 200) childOf this
+	) childOf options
+	val buyOnTradeFoundOption by BooleanOptionComponent("buy_on_trade_found", instance.config.shouldBuyOnTradeFound()) childOf options
+	val notifyOnTradeFoundOption by BooleanOptionComponent("notify_on_trade_found", instance.config.shouldNotifyOnTradeFound()) childOf options
+	val displayTradesOnVillagerOption by BooleanOptionComponent("display_trades_on_villager", instance.config.shouldDisplayTradesOnVillager()) childOf options
+	val reRollTimeoutTicksOption by IntegerOptionComponent("reroll_timeout_ticks", instance.config.rerollTimeoutTicks, 1, 200) childOf options
 	val secondTradeTypeOption by EnumOptionComponent(
 		"second_trade_type",
 		Config.SecondTradeType::class.java,
 		instance.config.secondTradeType
-	) childOf this
+	) childOf options
 
 	init {
+		options.setScrollBarComponent(scrollbar, hideWhenUseless = true, isHorizontal = false)
+
 		preventToolBreakingOption.checkbox.onUpdate {
 			instance.config.setPreventToolBreaking(it)
 			instance.configManager.save()
